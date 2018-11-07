@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="filr_copy_file_task_loader_id">153</integer>
+    <integer name="filr_delete_file_task_loader_id">154</integer>
+    <integer name="filr_move_file_task_loader_id">155</integer>
+    <integer name="filr_rename_file_task_loader_id">156</integer>
+</resources>

@@ -1,0 +1,28 @@
+<resources>
+    <string name="filr_file_order_by_asc">Ascending</string>
+    <string name="filr_file_order_by_desc">Descending</string>
+    <string name="filr_file_sort_by_name">Name</string>
+    <string name="filr_file_sort_by_size">Size</string>
+    <string name="filr_file_sort_by_date">Date</string>
+    <string name="filr_file_sort_by">Sort By</string>
+    <string name="filr_file_order_by">Order By</string>
+    <string name="filr_directory_not_found">Directory not found.</string>
+    <string name="filr_copying">Copying file…</string>
+    <string name="filr_deleting">Deleting file…</string>
+    <string name="filr_renaming">Renaming file･･･</string>
+    <string name="filr_moving">Moving file･･･</string>
+    <string name="filr_error_empty">Filename is empty.</string>
+    <string name="filr_error_exists">This filename already exists.</string>
+    <string name="filr_hint_enter">Enter a filename.</string>
+    <string name="filr_select_move_to_directory">Select move to</string>
+    <string name="filr_select_copy_to_directory">Select copy to</string>
+    <string name="filr_confirm_delete">Are you sure you want to delete a file?</string>
+    <string name="filr_copy_to">Copy to</string>
+    <string name="filr_rename_to">Rename to</string>
+    <string name="filr_confirm_move_to">Same filename already exists in the destination directory. \nDo you want to replace a file?</string>
+    <string name="filr_ok">OK</string>
+    <string name="filr_cancel">Cancel</string>
+    <string name="filr_yes">Yes</string>
+    <string name="filr_no">No</string>
+    <string name="filr_select">Select</string>
+</resources>

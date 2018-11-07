@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filr_file_order_by_asc">昇順</string>
+    <string name="filr_file_order_by_desc">降順</string>
+    <string name="filr_file_sort_by_name">名前順</string>
+    <string name="filr_file_sort_by_size">サイズ順</string>
+    <string name="filr_file_sort_by_date">日付順</string>
+    <string name="filr_file_sort_by">並び替え</string>
+    <string name="filr_file_order_by">順序</string>
+    <string name="filr_directory_not_found">ディレクトリが見つかりませんでした。</string>
+    <string name="filr_confirm_delete">本当にファイルを削除しますか？</string>
+    <string name="filr_confirm_move_to">同名のファイルが存在します。\n置き換えますか？</string>
+    <string name="filr_select_copy_to_directory">ファイルのコピー先を選択</string>
+    <string name="filr_select_move_to_directory">ファイルの移動先を選択</string>
+    <string name="filr_hint_enter">ファイル名を入力してください</string>
+    <string name="filr_error_empty">名前が空です。</string>
+    <string name="filr_error_exists">同名のファイルが既に存在しています。</string>
+    <string name="filr_copying">ファイルをコピー中･･･</string>
+    <string name="filr_deleting">ファイルを削除中･･･</string>
+    <string name="filr_renaming">ファイル名を変更中･･･</string>
+    <string name="filr_moving">ファイルを移動中･･･</string>
+    <string name="filr_copy_to">ファイルをコピーします。</string>
+    <string name="filr_rename_to">ファイル名を変更します。</string>
+    <string name="filr_ok">OK</string>
+    <string name="filr_cancel">キャンセル</string>
+    <string name="filr_yes">はい</string>
+    <string name="filr_no">いいえ</string>
+    <string name="filr_select">選択</string>
+</resources>
