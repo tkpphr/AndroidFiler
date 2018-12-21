@@ -93,18 +93,6 @@ public class DirectorySelectorDialog extends AppCompatDialogFragment{
 			}
 		});
 		directorySelectorView=view.findViewById(R.id.commons_file_directory_selector_view);
-		directorySelectorView.setFocusable(true);
-		directorySelectorView.setFocusableInTouchMode(true);
-		directorySelectorView.requestFocus();
-		directorySelectorView.setOnKeyListener(new View.OnKeyListener() {
-			@Override
-			public boolean onKey(View view, int i, KeyEvent keyEvent) {
-				if(keyEvent.getKeyCode()==KeyEvent.KEYCODE_BACK && keyEvent.getAction()==KeyEvent.ACTION_DOWN) {
-					return directorySelectorView.back();
-				}
-				return false;
-			}
-		});
 		directorySelectorView.setOnDirectoryChangedListener(new DirectorySelectorView.OnDirectoryChangedListener() {
 			@Override
 			public void onDirectoryChanged(File directory) {
@@ -117,8 +105,7 @@ public class DirectorySelectorDialog extends AppCompatDialogFragment{
 				}
 			}
 		});
-
-
+		setCancelable(false);
 		if(savedInstanceState==null){
 			directorySelectorView.setDirectory((File)getArguments().getSerializable("start_directory"));
 		}

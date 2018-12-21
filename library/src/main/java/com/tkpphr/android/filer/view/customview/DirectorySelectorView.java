@@ -24,6 +24,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DirectorySelectorView extends LinearLayout{
+	private Button backButton;
 	private DirectorySelector directorySelector;
 	private DirectoryPathBar directoryPathBar;
 	private ListView directoryListView;
@@ -59,6 +61,14 @@ public class DirectorySelectorView extends LinearLayout{
 				if(onDirectoryChangedListener!=null){
 					onDirectoryChangedListener.onDirectoryChanged(currentDirectory);
 				}
+				backButton.setEnabled(directorySelector.getCount() > 1);
+			}
+		});
+		backButton=findViewById(R.id.filr_back_button);
+		backButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				back();
 			}
 		});
 		directoryPathBar=findViewById(R.id.filr_directory_path_bar);
@@ -103,6 +113,7 @@ public class DirectorySelectorView extends LinearLayout{
 			Bundle savedState=(Bundle)state;
 			state=savedState.getParcelable("super_state");
 			directorySelector.addDirectories((List<File>) savedState.getSerializable("directories"));
+			backButton.setEnabled(directorySelector.getCount() > 1);
 		}
 		super.onRestoreInstanceState(state);
 	}
@@ -123,12 +134,17 @@ public class DirectorySelectorView extends LinearLayout{
 		if(directorySelector.getCurrentDirectory().exists()) {
 			adapter.refresh();
 		}else {
-			directorySelector.back();
+			back();
 		}
 	}
 
 	public boolean back(){
-		return directorySelector.back();
+		if(directorySelector.back()){
+			return true;
+		}else {
+			backButton.setEnabled(false);
+			return false;
+		}
 	}
 
 	public void setOnDirectoryChangedListener(OnDirectoryChangedListener onDirectoryChangedListener) {
