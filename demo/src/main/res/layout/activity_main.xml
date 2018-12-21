@@ -5,42 +5,59 @@
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <com.tkpphr.android.filer.view.customview.DirectoryPathBar
-                    android:id="@+id/directory_path_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/image_view_search"
-                    android:layout_toStartOf="@+id/image_view_search"
-                    app:tabMaxWidth="0dp"
-                    app:tabMode="scrollable"
-                    app:tabGravity="fill"
-                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                    app:tabTextColor="?android:attr/textColorPrimary"
-                    app:tabSelectedTextColor="?android:attr/textColorPrimary"/>
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/image_view_search"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_search"
-                    style="?attr/borderlessButtonStyle"/>
-            </RelativeLayout>
-            <android.support.v7.widget.SearchView
-                android:id="@+id/file_search_view"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                app:iconifiedByDefault="false"
-                app:queryHint="Search by file name"/>
-        </FrameLayout>
+                android:orientation="horizontal">
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/back_button"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:enabled="false"
+                    android:textStyle="bold"
+                    android:textColor="?android:textColorPrimary"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:text="←"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.tkpphr.android.filer.view.customview.DirectoryPathBar
+                            android:id="@+id/directory_path_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/image_view_search"
+                            android:layout_toStartOf="@+id/image_view_search"
+                            app:tabMaxWidth="0dp"
+                            app:tabMode="scrollable"
+                            app:tabGravity="fill"
+                            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                            app:tabTextColor="?android:attr/textColorPrimary"
+                            app:tabSelectedTextColor="?android:attr/textColorPrimary"/>
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/image_view_search"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/ic_search"
+                            style="?attr/borderlessButtonStyle"/>
+                    </RelativeLayout>
+                    <android.support.v7.widget.SearchView
+                        android:id="@+id/file_search_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="invisible"
+                        app:iconifiedByDefault="false"
+                        app:queryHint="Search by file name"/>
+                </FrameLayout>
+            </LinearLayout>
         <ListView
             android:id="@+id/list_view_file"
             android:layout_width="match_parent"

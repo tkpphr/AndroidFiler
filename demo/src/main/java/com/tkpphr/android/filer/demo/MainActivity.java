@@ -58,12 +58,21 @@ public class MainActivity extends AppCompatActivity implements OnCopyFinishedLis
 			binding.imageViewSearch.setVisibility(View.VISIBLE);
 			binding.fileSearchView.setVisibility(View.INVISIBLE);
 			binding.directoryPathBar.setDirectory(directory);
+			binding.backButton.setEnabled(directorySelector.getCount() > 1);
 			adapter.setSearchString("");
 			adapter.setDirectory(directory);
 			binding.listViewFile.setSelection(0);
 		});
 		binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
 		adapter=new FileListAdapter(this);
+		binding.backButton.setOnClickListener((view)->{
+			if(isSearchEnabled()) {
+				setSearchEnabled(false);
+			}else {
+				directorySelector.back();
+			}
+			binding.backButton.setEnabled(directorySelector.getCount()>1);
+		});
 		binding.listViewFile.setAdapter(adapter);
 		binding.listViewFile.setOnItemClickListener((adapterView, view, i, l) -> {
 			File file=adapter.getItem(i);
@@ -78,26 +87,9 @@ public class MainActivity extends AppCompatActivity implements OnCopyFinishedLis
 		getTheme().resolveAttribute(android.R.attr.textColorPrimary,outValue,true);
 		binding.imageViewSearch.getDrawable().setColorFilter(ResourcesCompat.getColor(getResources(),outValue.resourceId,getTheme()), PorterDuff.Mode.SRC_ATOP);
 		binding.imageViewSearch.setOnClickListener(v->{
-			binding.directoryPathBar.setVisibility(View.INVISIBLE);
-			binding.imageViewSearch.setVisibility(View.INVISIBLE);
-			binding.fileSearchView.setVisibility(View.VISIBLE);
-			adapter.setSearchString(binding.fileSearchView.getQuery().toString());
-			adapter.refresh();
+			setSearchEnabled(true);
 		});
 		binding.fileSearchView.setVisibility(View.INVISIBLE);
-		binding.fileSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-			@Override
-			public boolean onQueryTextSubmit(String query) {
-				return true;
-			}
-
-			@Override
-			public boolean onQueryTextChange(String newText) {
-				adapter.setSearchString(newText);
-				adapter.refresh();
-				return true;
-			}
-		});
 		binding.directoryPathBar.setOnClickPathListener(depth -> {
 			File currentDirectory=directorySelector.getCurrentDirectory();
 			if(currentDirectory!=null){
@@ -114,7 +106,25 @@ public class MainActivity extends AppCompatActivity implements OnCopyFinishedLis
 			directorySelector.moveTo(Environment.getExternalStorageDirectory());
 		}else {
 			directorySelector.addDirectories((List<File>) savedInstanceState.getSerializable("directories"));
+			binding.backButton.setEnabled(directorySelector.getCount() > 1);
+			binding.fileSearchView.setQuery(savedInstanceState.getString("search_string"),false);
+			if(savedInstanceState.getBoolean("search_enabled")){
+				setSearchEnabled(true);
+			}
 		}
+		binding.fileSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				return true;
+			}
+
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				adapter.setSearchString(newText);
+				adapter.refresh();
+				return true;
+			}
+		});
 		ActivityCompat.requestPermissions(this,new String[]{"android.permission.READ_EXTERNAL_STORAGE","android.permission.WRITE_EXTERNAL_STORAGE"},10);
 	}
 
@@ -122,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements OnCopyFinishedLis
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putSerializable("directories",new ArrayList<>(directorySelector.getDirectories()));
+		outState.putBoolean("search_enabled",isSearchEnabled());
+		outState.putString("search_string",binding.fileSearchView.getQuery().toString());
 	}
 
 	@Override
@@ -156,20 +168,6 @@ public class MainActivity extends AppCompatActivity implements OnCopyFinishedLis
 	protected void onResume() {
 		super.onResume();
 		adapter.refresh();
-	}
-
-	@Override
-	public void onBackPressed() {
-		if(binding.fileSearchView.getVisibility()==View.VISIBLE){
-			binding.directoryPathBar.setVisibility(View.VISIBLE);
-			binding.imageViewSearch.setVisibility(View.VISIBLE);
-			binding.fileSearchView.setVisibility(View.INVISIBLE);
-			adapter.setSearchString("");
-			adapter.refresh();
-			binding.listViewFile.setSelection(0);
-		}else if(!directorySelector.back()) {
-			super.onBackPressed();
-		}
 	}
 
 	@Override
@@ -222,5 +220,27 @@ public class MainActivity extends AppCompatActivity implements OnCopyFinishedLis
 	@Override
 	public void onDirectorySelectCanceled() {
 
+	}
+
+	private boolean isSearchEnabled(){
+		return binding.fileSearchView.getVisibility()==View.VISIBLE;
+	}
+
+	private void setSearchEnabled(boolean searchEnabled){
+		if(searchEnabled){
+			binding.directoryPathBar.setVisibility(View.INVISIBLE);
+			binding.imageViewSearch.setVisibility(View.INVISIBLE);
+			binding.fileSearchView.setVisibility(View.VISIBLE);
+			binding.backButton.setEnabled(true);
+			adapter.setSearchString(binding.fileSearchView.getQuery().toString());
+			adapter.refresh();
+		}else {
+			binding.directoryPathBar.setVisibility(View.VISIBLE);
+			binding.imageViewSearch.setVisibility(View.VISIBLE);
+			binding.fileSearchView.setVisibility(View.INVISIBLE);
+			adapter.setSearchString("");
+			adapter.refresh();
+			binding.listViewFile.setSelection(0);
+		}
 	}
 }
